@@ -69,7 +69,11 @@ df2.printSchema()
 df2.show(truncate=False) # shows all columns
 
 
-
+pandas in SPARK
+import pandas as pd
+spark.conf.set('spark.sql.execution.arrow.pyspark.enabled', False)
+users_df = spark.createDataFrame(pd.DataFrame(users))
+users_df.select('*').show()
 
 
 
