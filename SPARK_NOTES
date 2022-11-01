@@ -69,6 +69,9 @@ df2.printSchema()
 df2.show(truncate=False) # shows all columns
 
 
+# Dropping Column
+# Drop Column 1 - can be a string OR Column
+# Multi Column Drpo - must be a string
 pandas in SPARK
 import pandas as pd
 spark.conf.set('spark.sql.execution.arrow.pyspark.enabled', False)
