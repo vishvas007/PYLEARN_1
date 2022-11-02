@@ -69,6 +69,7 @@ df2.printSchema()
 df2.show(truncate=False) # shows all columns
 
 
+
 # Dropping Column
 # Drop Column 1 - can be a string OR Column
 # Multi Column Drpo - must be a string
@@ -77,6 +78,46 @@ import pandas as pd
 spark.conf.set('spark.sql.execution.arrow.pyspark.enabled', False)
 users_df = spark.createDataFrame(pd.DataFrame(users))
 users_df.select('*').show()
+
+DROP DUPLICATE RECORDS
+Here are the features that are available with respect to dropping duplicate records.
+Drop duplicates based on all columns. It is also known as distinct.
+Drop duplicates based on certain columns.
+We can use distinct, drop_duplicates or dropDuplicates for these scenarios.
+
+users_df.distinct().show()
+users_df.dropDuplicates().show()
+
+# We can also drop duplicates based on certain columns
+# This will fail as the function expects sequence type object such as list or array
+users_df.dropDuplicates('id').show()
+users_df.dropDuplicates(['id', 'amount_paid']).show()
+
+
+
+
+DROP NULL RECORDS
+Here are the features that are available with respect to dropping records based on null values.
+Drop records when all column values are nulls.
+Drop records any of the column value is null.
+Drop records that have less than thresh non-null values.
+Drop records when any of the column value or all column values are nulls for provided subset of columns.
+We can use df.na.drop or df.dropna to take care of dealing with records having columns with null values.
+users_df.na.drop('all').show()
+# Drop if any column value is null
+users_df.na.drop('any').show()
+users_df.na.drop(thresh=2).show()
+users_df.na.drop(how='all', subset=['id', 'email']).show()
+
+
+
+SORTING 
+Here are the sorting scenarios which we should be familiar with.
+Sort a data frame using ascending order by a specific column.
+Sort a data frame using descending order by a specific column.
+Dealing with nulls while sorting the data (having the null values at the beginning or at the end).
+Sort a data frame using multiple columns (composite sorting). We also need to be aware of how to sort the data in ascending order by first column and then descending order by second column as well as vice versa.
+We also need to make sure how to perform prioritized sorting. For example, let's say we want to get USA at the top and rest of the countries in ascending order by their respective names.
 
 
 
